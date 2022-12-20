@@ -167,6 +167,8 @@ header > .magic > .magic-star > svg > path {
 
 /*---- Mobile Nav ----*/
 @media(max-width: 700px) {
+    padding: 15px 10%;
+}
 }
 @media (pointer:none), (pointer:coarse) {
     .cursor {
