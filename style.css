@@ -9,7 +9,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    background-color: var(--navy);
     cursor: none;
 }
 html, body {
@@ -17,8 +16,10 @@ html, body {
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
+    background-color: var(--navy);
     box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
+
 /*---- Mouse Trail ----*/
 .cursor {
     pointer-events: none;
@@ -29,16 +30,21 @@ html, body {
     top: 0;
     left: 0;
     z-index: 9999999999999999;
+    opacity: 1;
 }
 .circle {
     position: absolute;
     display: block;
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: 20px;
     background-color: var(--red);
     pointer-events: none;
 }
+.invisible {
+    opacity: 0;
+}
+
 /*---- Nav Bar ----*/
 li, a, button {
     font-family: 'Poppins', sans-serif;
@@ -53,7 +59,6 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 30px 10%;
-    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
 
 .logo {
@@ -112,4 +117,59 @@ button:hover {
     background-color: var(--red);
     background-color: var(--red-tint);
     outline: none;
+}
+
+/*---- Hover Effects ----*/
+@keyframes scale {
+    from, to {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(250deg);
+    }
+}
+header > .magic {
+display: inline-block;
+position: relative;
+}
+
+header > .magic > .magic-star {
+    --size: clamp(15px, 1.2vw, 30px);
+    animation: scale 700ms ease forwards;
+    display: block;
+    height: var(--size);
+    left: var(--star-left);
+    position: absolute;
+    top: var(--star-top);
+    width: var(--size);
+}
+
+header > .magic > .magic-star > svg {
+    animation: rotate 1000ms linear infinite;
+    display: block;
+    opacity: 0.9;
+}
+
+header > .magic > .magic-star > svg > path {
+    fill: var(--red);
+}
+
+/*---- Mobile Nav ----*/
+@media(max-width: 700px) {
+}
+@media (pointer:none), (pointer:coarse) {
+    .cursor {
+        opacity: 0;
+    }
 }
