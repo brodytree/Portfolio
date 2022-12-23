@@ -1,5 +1,6 @@
 :root {
     --navy: #0a192f;
+    --light-navy: #112240;
     --red: #ff2400;
     --gray: #C5C6D0;
     --red-tint: rgba(255,36,0,0.15);
@@ -17,7 +18,7 @@ html, body {
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
     background-color: var(--navy);
-    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
+    overflow-x: hidden;
 }
 
 /*---- Mouse Trail ----*/
@@ -46,7 +47,7 @@ html, body {
 }
 
 /*---- Nav Bar ----*/
-li, a, button {
+header nav li,header nav a, header span button {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 16px;
@@ -54,15 +55,29 @@ li, a, button {
     text-decoration: none;
 }
 
+#resume-li {
+    display: none;
+}
+
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 10%;
+    box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
 
 .logo {
     width: 50px;
+    opacity: 1;
+}
+
+.mobile-nav-toggle {
+    display: none;
+}
+
+.nav-bars-text {
+    visibility: hidden;
 }
 
 .nav_links {
@@ -100,11 +115,13 @@ header {
     color: var(--red);
 }
 
-.nav_links li a:hover::after {
-    width: 100%;
+@media(min-width: 700px) {
+    .nav_links li a:hover::after {
+        width: 100%;
+    }
 }
 
-button {
+header span button {
     padding: .30rem .8rem;
     background-color: transparent;
     color: var(--red);
@@ -113,7 +130,7 @@ button {
     transition: var(--transition);
 }
 
-button:hover {
+header span button:hover {
     background-color: var(--red);
     background-color: var(--red-tint);
     outline: none;
@@ -139,6 +156,7 @@ button:hover {
         transform: rotate(250deg);
     }
 }
+
 header > .magic {
 display: inline-block;
 position: relative;
@@ -167,11 +185,66 @@ header > .magic > .magic-star > svg > path {
 
 /*---- Mobile Nav ----*/
 @media(max-width: 700px) {
-    padding: 15px 10%;
-}
+    header {
+        padding: 3% 6%;
+    }
+    nav {
+        z-index: 1;
+        position: fixed;
+        inset: 0 0 0 40%;
+        box-shadow: -4px 0px 10px 1px rgba(0,0,0,0.2);
+        padding: 3% 6%;
+        background: var(--light-navy);
+        flex-direction: column;
+        padding: 20% 0;
+        transform: translateX(100%);
+        transition: var(--transition);
+    }
+    nav[data-visible="true"] {
+        transform: translateX(0%);
+        overflow-y: hidden;
+    }
+    .nav_links li {
+        padding: 2rem 0px;
+        display: block;
+        text-align: center;
+    }
+    header nav li, header nav a {
+        font-size: 5vw;
+    }
+    #resume-li {
+        display: block;
+    }
+    button {
+        display: none;
+    }
+    div[data-visible="true"] {
+        z-index: -1;
+        filter: blur(6px);
+        transition: var(--transition);
+        overflow-y: hidden;
+    }
+
+    .mobile-nav-toggle {
+        display: block;
+        position: absolute;
+        z-index: 9999;
+        background: url("assets/images/icon-hamburger.svg");
+        background-repeat: no-repeat;
+        width: 2rem;
+        border: 0;
+        aspect-ratio: 1;
+        top: 1.6rem;
+        right: .9rem;
+    }
 }
 @media (pointer:none), (pointer:coarse) {
     .cursor {
         opacity: 0;
     }
+}
+
+/*---- Hero Section ----*/
+.hero {
+    padding: 3rem;
 }
