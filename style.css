@@ -1,10 +1,14 @@
 :root {
-    --navy: #0a192f;
-    --light-navy: #112240;
+    --navy: #0a192f; /*#0a192f -- #010812*/
     --red: #ff2400;
+    --light-navy: #112240;
     --gray: #C5C6D0;
     --red-tint: rgba(255,36,0,0.15);
     --transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+    --light-red1: #FF3211;
+    --light-red2: #FF4122;
+    --light-red3: #FF4F33;
+    --light-red4: #FF5D43;
 }
 * {
     box-sizing: border-box;
@@ -36,8 +40,8 @@ html, body {
 .circle {
     position: absolute;
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 20px;
     background-color: var(--red);
     pointer-events: none;
@@ -60,10 +64,14 @@ header nav li,header nav a, header span button {
 }
 
 header {
+    z-index: 10;
+    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 10%;
+    height: 100px;
+    width: 100%;
     box-shadow: 0 -6px 10px 5px rgba(0,0,0,0.5);
 }
 
@@ -75,10 +83,6 @@ header {
 
 .mobile-nav-toggle {
     display: none;
-}
-
-.nav-bars-text {
-    visibility: hidden;
 }
 
 .nav_links {
@@ -188,7 +192,9 @@ header > .magic > .magic-star > svg > path {
 @media(max-width: 700px) {
     header {
         padding: 3% 6%;
+        height: 65px;
     }
+
     nav {
         z-index: 1;
         position: fixed;
@@ -201,46 +207,91 @@ header > .magic > .magic-star > svg > path {
         transform: translateX(100%);
         transition: var(--transition);
     }
+
     nav[data-visible="true"] {
-        transform: translateX(0%);
-        overflow-y: hidden;
-    }
+            transform: translateX(0%);
+            overflow-y: hidden;
+        }
+
     .logo {
         width: 40px;
     }
+
     .nav_links li {
         padding: 2rem 0px;
         display: block;
         text-align: center;
     }
+
     header nav li, header nav a {
         font-size: 5vw;
     }
+
     #resume-li {
         display: block;
     }
+
     button {
         display: none;
     }
-    div[data-visible="true"] {
-        z-index: -1;
+
+    section[data-visible="true"] {
         filter: blur(6px);
         transition: var(--transition);
+    }
+
+    html[data-visible="true"] {
         overflow-y: hidden;
     }
 
+    /*---- Nav Bars Icon ----*/
     .mobile-nav-toggle {
         display: block;
         position: absolute;
-        z-index: 9999;
-        background: url("assets/images/icon-hamburger.svg");
-        background-repeat: no-repeat;
-        width: 2rem;
-        border: 0;
-        aspect-ratio: 1;
-        top: 1.3rem;
-        right: .9rem;
+        width: 30px;
+        height: 25px;
+        right: 20px;
+        top: 20.5px;
+        z-index: 200;
     }
+    .nav-icon {
+        display: inline-block;
+        position: relative;
+        width: 28px;
+        height: 3px;
+        background-color: var(--red);
+        transition-property: background-color, transform;
+        transition-duration: 200ms;
+    }
+    .nav-icon:before, .nav-icon:after {
+        content: '';
+        display: block;
+        width: 28px;
+        height: 3px;
+        position: absolute;
+        background: var(--red);
+        transition-property: margin, transform;
+        transition-duration: 200ms;
+    }
+    .nav-icon:before {
+        margin-top: -10px;
+    }
+    .nav-icon:after {
+        margin-top: 10px;
+    }
+    .mobile-nav-toggle[aria-expanded="true"] .nav-icon {
+        background: rgba(0,0,0,0);
+        transform: rotate(135deg);
+    }
+    .mobile-nav-toggle[aria-expanded="true"] .nav-icon:before {
+        margin-top: 0;
+        transform: rotate(90deg);
+    }
+    .mobile-nav-toggle[aria-expanded="true"] .nav-icon:after {
+        margin-top: 0;
+        transform: rotate(180deg);
+    }
+    /*-----------------------*/
 }
 @media (pointer:none), (pointer:coarse) {
     .cursor {
@@ -250,5 +301,68 @@ header > .magic > .magic-star > svg > path {
 
 /*---- Hero Section ----*/
 .hero {
-    padding: 3rem;
+    z-index: 1;
+    padding: 0 150px 0 150px;
+    margin: 0 150px 0 150px;
+    font-family: Circular Pro Medium,sans-serif;
+    text-decoration: none;
+}
+.hero .content {
+    margin: 0 150px 0 150px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 89vh;
+    height: 100vh;
+    padding: 0px;
+}
+.hero div h1{
+    font-family: "SF Mono","Fira Code","Fira Mono","Roboto Mono",monospace;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: var(--gray);
+}
+.hero div h2{
+    font: inherit;
+    font-size: 80px;
+    font-weight: bold;
+    color: var(--gray);
+}
+.name-is {
+    animation: background-pan 2s linear infinite;
+    background: linear-gradient(
+        to right,
+        var(--red),
+        var(--light-red1),
+        var(--light-red2),
+        var(--light-red3),
+        var(--light-red4),
+        var(--red)
+    );
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+}
+.about-me {
+    width: 55%;
+    margin-top: 30px;
+}
+.about-me p {
+    font-family: Circular Pro Medium,sans-serif;
+    font-size: 18px;
+    color: white;
+    opacity: .5;
+}
+@keyframes background-pan {
+    from {
+        background-position: 0% center;
+    }
+    to {
+        background-position: -200% center;
+    }
 }
