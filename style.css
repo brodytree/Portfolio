@@ -69,6 +69,7 @@ header {
 
 .logo {
     width: 50px;
+    aspect-ratio: 1;
     opacity: 1;
 }
 
@@ -204,6 +205,9 @@ header > .magic > .magic-star > svg > path {
         transform: translateX(0%);
         overflow-y: hidden;
     }
+    .logo {
+        width: 40px;
+    }
     .nav_links li {
         padding: 2rem 0px;
         display: block;
@@ -234,7 +238,7 @@ header > .magic > .magic-star > svg > path {
         width: 2rem;
         border: 0;
         aspect-ratio: 1;
-        top: 1.6rem;
+        top: 1.3rem;
         right: .9rem;
     }
 }
